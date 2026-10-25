@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineWeather | Weather & Movies</title>
+  <meta name="description" content="Check the weather and discover movies with CineWeather.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="#" class="brand" data-go="home">✦ CineWeather</a>
+    <nav>
+      <button class="nav-btn active" data-page="home">Home</button>
+      <button class="nav-btn" data-page="weather">Weather</button>
+      <button class="nav-btn" data-page="movies">Movies</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="page">
+      <div class="hero">
+        <span class="tag">YOUR DAILY DASHBOARD</span>
+        <h1>Discover your world.</h1>
+        <p>Check the weather in your city and find your next favourite movie.</p>
+        <div class="hero-buttons">
+          <button class="primary-btn" data-go="weather">Check Weather</button>
+          <button class="outline-btn" data-go="movies">Explore Movies</button>
+        </div>
+        <div class="hero-decoration">✦</div>
+      </div>
+
+      <div class="home-grid">
+        <article class="home-card">
+          <div class="big-icon">🌤️</div>
+          <h2>Weather Forecast</h2>
+          <p>Check temperature, conditions, humidity and wind speed for cities across India and around the world.</p>
+          <button class="text-btn" data-go="weather">Explore Weather →</button>
+        </article>
+
+        <article class="home-card">
+          <div class="big-icon">🎬</div>
+          <h2>Movie Discovery</h2>
+          <p>Search movies, explore posters and find information about your favourite films.</p>
+          <button class="text-btn" data-go="movies">Find Movies →</button>
+        </article>
+      </div>
+
+     
+      
+    </section>
+
+    <section id="weather" class="page hidden">
+      <div class="section-heading">
+        <span class="tag">LIVE WEATHER</span>
+        <h1>Weather Dashboard</h1>
+        <p>What's the weather like in your city?</p>
+      </div>
+
+      <form id="weather-form" class="search-box">
+        <input id="city-input" type="text"
+          placeholder="Enter a city, e.g. Mumbai or Pune"
+          list="indian-cities" autocomplete="off" required>
+        <datalist id="indian-cities">
+          <option value="Mumbai"></option>
+          <option value="Pune"></option>
+          <option value="Chhatrapati Sambhajinagar"></option>
+          <option value="Nagpur"></option>
+          <option value="Nashik"></option>
+          <option value="Thane"></option>
+          <option value="Kolhapur"></option>
+          <option value="Solapur"></option>
+          <option value="Nanded"></option>
+          <option value="Amravati"></option>
+          <option value="Delhi"></option>
+          <option value="New Delhi"></option>
+          <option value="Bengaluru"></option>
+          <option value="Chennai"></option>
+          <option value="Hyderabad"></option>
+          <option value="Kolkata"></option>
+          <option value="Ahmedabad"></option>
+          <option value="Surat"></option>
+          <option value="Jaipur"></option>
+          <option value="Lucknow"></option>
+          <option value="Kanpur"></option>
+          <option value="Agra"></option>
+          <option value="Varanasi"></option>
+          <option value="Bhopal"></option>
+          <option value="Indore"></option>
+          <option value="Patna"></option>
+          <option value="Ranchi"></option>
+          <option value="Raipur"></option>
+          <option value="Bhubaneswar"></option>
+          <option value="Guwahati"></option>
+          <option value="Dehradun"></option>
+          <option value="Shimla"></option>
+          <option value="Srinagar"></option>
+          <option value="Chandigarh"></option>
+          <option value="Panaji"></option>
+          <option value="Kochi"></option>
+          <option value="Thiruvananthapuram"></option>
+          <option value="Coimbatore"></option>
+          <option value="Madurai"></option>
+          <option value="Mysuru"></option>
+          <option value="Vijayawada"></option>
+          <option value="Visakhapatnam"></option>
+        </datalist>
+        <button class="primary-btn" type="submit">Search</button>
+      </form>
+
+      <p id="weather-message" class="message" aria-live="polite"></p>
+
+      <div id="weather-result" class="weather-result hidden">
+        <div class="weather-main">
+          <div>
+            <p class="mini-label">CURRENT WEATHER</p>
+            <h2 id="weather-city" class="weather-city"></h2>
+            <p id="weather-condition" class="weather-condition"></p>
+            <h3 class="temperature"><span id="temperature"></span><sup>°C</sup></h3>
+            <p id="feels-like" class="feels-like"></p>
+          </div>
+          <div id="weather-icon" class="weather-icon">🌤️</div>
+        </div>
+
+        <div class="weather-details">
+          <div class="detail-card">
+            <span>💧</span>
+            <p>Humidity</p>
+            <h3 id="humidity"></h3>
+          </div>
+          <div class="detail-card">
+            <span>🌬️</span>
+            <p>Wind Speed</p>
+            <h3 id="wind"></h3>
+          </div>
+        </div>
+      </div>
+     
+    </section>
+
+    <section id="movies" class="page hidden">
+      <div class="section-heading">
+        <span class="tag">MOVIE DISCOVERY</span>
+        <h1>Find Your Next Movie</h1>
+        <p>Search a movie title to discover posters and details.</p>
+      </div>
+
+      <form id="movie-form" class="search-box">
+        <input id="movie-input" type="text"
+          placeholder="Search movies, e.g. Avatar"
+          autocomplete="off" required>
+        <button class="primary-btn" type="submit">Search</button>
+      </form>
+
+      <p id="movie-message" class="message" aria-live="polite"></p>
+      <div id="movie-results" class="movie-grid"></div>
+      <div id="movie-detail" class="movie-detail hidden"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <h2>✦ CineWeather</h2>
+    <p>Weather updates and movie discoveries in one place.</p>
+    <div class="footer-line"></div>
+  
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

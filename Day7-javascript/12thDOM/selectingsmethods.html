@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="myp">Hello guys Welcome JS DOM</p>
+
+    <div class="box">This is Div With 0 Balls</div>
+
+    <div class="box">This is Div With 1 Balls</div>
+
+    <p>This is Second Paragraph Tag</p>
+
+     <div class="abc" id="xyz">Good Morning</div>
+
+     <div class="abc">Good Evening</div>
+
+    <script>
+        //Selecting Method - Different ways to selct HTML Tag
+
+        //1. Target Single or Indivual HTML Tag - using ID
+
+        //    document = webpage in JS
+        //    Element = HTML tag
+
+        const paragraphTag  =   document.getElementById("myp")  //Paragaph Tag From HTML body is in JS Now
+        document.write(paragraphTag)
+
+
+        //2. Select By Class
+
+        const container =  document.getElementsByClassName("box")
+
+        document.write(container) 
+        document.write(container[1])
+
+
+        //3. TagName
+          const para  =  document.getElementsByTagName("p")     
+          document.write(para)
+          document.write(para[0])
+
+
+        //4. querySelector() --> it follows CSS selector rule : #Idname , .className , TagName
+            // It will only Select The First Element/Tag
+            
+            
+        const box = document.querySelector(".abc")
+        document.write(box)
+
+        //5.querySelectorAll() -- All The Elements/Tag
+
+        const boxes  =  document.querySelectorAll(".abc")
+        document.write(boxes)
+        document.write(boxes[1])
+        
+
+
+
+
+    </script>   
+</body>
+</html>

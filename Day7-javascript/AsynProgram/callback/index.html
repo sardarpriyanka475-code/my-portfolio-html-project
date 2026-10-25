@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <script>
+    //CALLBACK : CALL BACK is FUNCTION and it is passed as parameter into another function and it is called after the execution of that function.
+    function DoHomework(subject,callback){
+        document.write('Doing home work for ' + subject + '<br>');
+        callback();
+
+    }
+    DoHomework("math",function(){
+        document.write("home work is done");
+    })
+   </script> 
+</body>
+</html>

@@ -1,0 +1,1448 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Admin Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #252a34;
+        }
+
+        /*  SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: #111827;
+            color: white;
+            padding: 25px 15px;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            padding: 0 15px 30px;
+        }
+
+        .logo i {
+            color: #6366f1;
+            margin-right: 8px;
+        }
+
+        .menu-title {
+            font-size: 11px;
+            color: #9ca3af;
+            margin: 15px;
+            text-transform: uppercase;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #cbd5e1;
+            display: block;
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            transition: 0.3s;
+        }
+
+        .sidebar a i {
+            margin-right: 12px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #6366f1;
+            color: white;
+        }
+
+        /*  MAIN  */
+
+        .main {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+
+        .topbar {
+            height: 75px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .page-title h4 {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .page-title small {
+            color: #6b7280;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #6366f1;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        /*  CONTENT  */
+
+        .content {
+            padding: 30px;
+        }
+
+        /*  CARDS  */
+
+        .stat-card {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            padding: 22px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+            height: 100%;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            background: #eef2ff;
+            color: #6366f1;
+        }
+
+        .stat-card h3 {
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 3px;
+        }
+
+        .stat-card p {
+            color: #6b7280;
+            margin: 0;
+        }
+
+        /*  DASHBOARD  */
+
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .department-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 18px 0;
+        }
+
+        .progress {
+            height: 8px;
+            margin-top: 8px;
+        }
+
+        /*  TABLE  */
+
+        .employee-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .employee-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .employee-header h5 {
+            font-weight: bold;
+        }
+
+        .table {
+            vertical-align: middle;
+        }
+
+        .table th {
+            color: #6b7280;
+            font-size: 13px;
+            font-weight: 600;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .table td {
+            padding: 15px 10px;
+        }
+
+        .employee-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .employee-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e0e7ff;
+            color: #4f46e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .employee-name {
+            font-weight: 600;
+        }
+
+        .employee-email {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-inactive {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .action-btn {
+            border: none;
+            background: transparent;
+            padding: 5px 8px;
+        }
+
+        .edit-btn {
+            color: #6366f1;
+        }
+
+        .delete-btn {
+            color: #ef4444;
+        }
+
+        /* BUTTON  */
+
+        .btn-primary {
+            background: #6366f1;
+            border-color: #6366f1;
+        }
+
+        .btn-primary:hover {
+            background: #4f46e5;
+            border-color: #4f46e5;
+        }
+
+        /* MOBILE  */
+
+        .mobile-menu {
+            display: none;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 992px) {
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: 0.3s;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+
+            .admin-profile span {
+                display: none;
+            }
+
+            .employee-header {
+                display: block;
+            }
+
+            .employee-header button {
+                margin-top: 15px;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="logo">
+        <i class="bi bi-grid-1x2-fill"></i>
+        AdminPanel
+    </div>
+
+    <div class="menu-title">
+        Main Menu
+    </div>
+
+    <a href="#" class="active">
+        <i class="bi bi-speedometer2"></i>
+        Dashboard
+    </a>
+
+    <a href="#employees">
+        <i class="bi bi-people"></i>
+        Employees
+    </a>
+
+    <a href="#">
+        <i class="bi bi-calendar-check"></i>
+        Attendance
+    </a>
+
+    <a href="#">
+        <i class="bi bi-bar-chart"></i>
+        Reports
+    </a>
+
+    <div class="menu-title">
+        Management
+    </div>
+
+    <a href="#">
+        <i class="bi bi-building"></i>
+        Departments
+    </a>
+
+    <a href="#">
+        <i class="bi bi-person-badge"></i>
+        Roles
+    </a>
+
+    <a href="#">
+        <i class="bi bi-gear"></i>
+        Settings
+    </a>
+
+</div>
+
+
+<!--  MAIN -->
+
+<div class="main">
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <div class="d-flex align-items-center gap-3">
+
+            <i class="bi bi-list mobile-menu" onclick="toggleSidebar()"></i>
+
+            <div class="page-title">
+
+                <h4>Dashboard</h4>
+
+                <small>
+                    Welcome back, Admin 👋
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="admin-profile">
+
+            <div class="admin-avatar">
+                A
+            </div>
+
+            <span>
+                <strong>Admin</strong><br>
+                <small class="text-muted">Administrator</small>
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+        <!-- STATISTICS -->
+
+        <div class="row g-4">
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+
+                    <h3 id="totalEmployees">
+                        0
+                    </h3>
+
+                    <p>Total Employees</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-person-check-fill"></i>
+                    </div>
+
+                    <h3 id="activeEmployees">
+                        0
+                    </h3>
+
+                    <p>Active Employees</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-person-x-fill"></i>
+                    </div>
+
+                    <h3 id="inactiveEmployees">
+                        0
+                    </h3>
+
+                    <p>Inactive Employees</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-building-fill"></i>
+                    </div>
+
+                    <h3 id="totalDepartments">
+                        0
+                    </h3>
+
+                    <p>Departments</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DASHBOARD INFORMATION -->
+
+        <div class="row">
+
+            <div class="col-lg-8">
+
+                <div class="dashboard-card">
+
+                    <h5 class="fw-bold">
+                        Employee Overview
+                    </h5>
+
+                    <p class="text-muted">
+                        Current employee distribution
+                    </p>
+
+                    <div id="departmentStats"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4">
+
+                <div class="dashboard-card">
+
+                    <h5 class="fw-bold">
+                        Quick Actions
+                    </h5>
+
+                    <p class="text-muted">
+                        Manage your employees
+                    </p>
+
+                    <button
+                        class="btn btn-primary w-100 mb-3"
+                        data-bs-toggle="modal"
+                        data-bs-target="#employeeModal"
+                        onclick="openAddModal()">
+
+                        <i class="bi bi-person-plus"></i>
+                        Add Employee
+
+                    </button>
+
+                    <button
+                        class="btn btn-outline-secondary w-100"
+                        onclick="document.getElementById('employees').scrollIntoView()">
+
+                        <i class="bi bi-people"></i>
+                        View Employees
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- EMPLOYEE TABLE -->
+
+        <div class="employee-card" id="employees">
+
+            <div class="employee-header">
+
+                <div>
+
+                    <h5>
+                        Employee Management
+                    </h5>
+
+                    <p class="text-muted mb-0">
+                        Manage all your employees
+                    </p>
+
+                </div>
+
+                <button
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#employeeModal"
+                    onclick="openAddModal()">
+
+                    <i class="bi bi-plus-lg"></i>
+                    Add Employee
+
+                </button>
+
+            </div>
+
+
+            <!-- SEARCH AND FILTER -->
+
+            <div class="row g-3 mb-4">
+
+                <div class="col-md-6">
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="bi bi-search"></i>
+                        </span>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="searchInput"
+                            placeholder="Search employee..."
+                            onkeyup="displayEmployees()">
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <select
+                        class="form-select"
+                        id="departmentFilter"
+                        onchange="displayEmployees()">
+
+                        <option value="All">
+                            All Departments
+                        </option>
+
+                        <option value="IT">
+                            IT
+                        </option>
+
+                        <option value="HR">
+                            HR
+                        </option>
+
+                        <option value="Finance">
+                            Finance
+                        </option>
+
+                        <option value="Marketing">
+                            Marketing
+                        </option>
+
+                        <option value="Sales">
+                            Sales
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- TABLE -->
+
+            <div class="table-container">
+
+                <table class="table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>EMPLOYEE</th>
+
+                            <th>DEPARTMENT</th>
+
+                            <th>POSITION</th>
+
+                            <th>PHONE</th>
+
+                            <th>STATUS</th>
+
+                            <th>ACTION</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="employeeTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!--  ADD / EDIT MODAL  -->
+
+<div
+    class="modal fade"
+    id="employeeModal"
+    tabindex="-1">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5
+                    class="modal-title"
+                    id="modalTitle">
+
+                    Add Employee
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <form id="employeeForm">
+
+                    <input
+                        type="hidden"
+                        id="employeeId">
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            placeholder="Enter employee name"
+                            required>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="email"
+                            placeholder="Enter email"
+                            required>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Department
+                        </label>
+
+                        <select
+                            class="form-select"
+                            id="department"
+                            required>
+
+                            <option value="">
+                                Select Department
+                            </option>
+
+                            <option value="IT">
+                                IT
+                            </option>
+
+                            <option value="HR">
+                                HR
+                            </option>
+
+                            <option value="Finance">
+                                Finance
+                            </option>
+
+                            <option value="Marketing">
+                                Marketing
+                            </option>
+
+                            <option value="Sales">
+                                Sales
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Position
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="position"
+                            placeholder="e.g. Software Developer"
+                            required>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Phone
+                        </label>
+
+                        <input
+                            type="tel"
+                            class="form-control"
+                            id="phone"
+                            placeholder="Enter phone number"
+                            required>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Status
+                        </label>
+
+                        <select
+                            class="form-select"
+                            id="status"
+                            required>
+
+                            <option value="Active">
+                                Active
+                            </option>
+
+                            <option value="Inactive">
+                                Inactive
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary w-100">
+
+                        Save Employee
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Bootstrap JavaScript -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+
+    /*  SAMPLE EMPLOYEES */
+
+    let employees = JSON.parse(localStorage.getItem("employees")) || [
+
+        {
+            id: 1,
+            name: "Aarav Sharma",
+            email: "aarav@gmail.com",
+            department: "IT",
+            position: "Software Developer",
+            phone: "9876543210",
+            status: "Active"
+        },
+
+        {
+            id: 2,
+            name: "Priya Patil",
+            email: "priya@gmail.com",
+            department: "HR",
+            position: "HR Manager",
+            phone: "9876543211",
+            status: "Active"
+        },
+
+        {
+            id: 3,
+            name: "Rahul Joshi",
+            email: "rahul@gmail.com",
+            department: "Finance",
+            position: "Accountant",
+            phone: "9876543212",
+            status: "Active"
+        },
+
+        {
+            id: 4,
+            name: "Sneha Kulkarni",
+            email: "sneha@gmail.com",
+            department: "Marketing",
+            position: "Marketing Executive",
+            phone: "9876543213",
+            status: "Inactive"
+        },
+
+        {
+            id: 5,
+            name: "Aditya Deshmukh",
+            email: "aditya@gmail.com",
+            department: "Sales",
+            position: "Sales Manager",
+            phone: "9876543214",
+            status: "Active"
+        }
+
+    ];
+
+
+    /*  SAVE DATA  */
+
+    function saveData() {
+
+        localStorage.setItem(
+            "employees",
+            JSON.stringify(employees)
+        );
+
+    }
+
+
+    /*  DISPLAY EMPLOYEES  */
+
+    function displayEmployees() {
+
+        const table =
+            document.getElementById("employeeTable");
+
+        const search =
+            document.getElementById("searchInput")
+            .value
+            .toLowerCase();
+
+        const department =
+            document.getElementById("departmentFilter")
+            .value;
+
+
+        table.innerHTML = "";
+
+
+        const filteredEmployees =
+            employees.filter(employee => {
+
+                const matchesSearch =
+                    employee.name
+                    .toLowerCase()
+                    .includes(search) ||
+
+                    employee.email
+                    .toLowerCase()
+                    .includes(search) ||
+
+                    employee.position
+                    .toLowerCase()
+                    .includes(search);
+
+
+                const matchesDepartment =
+                    department === "All" ||
+                    employee.department === department;
+
+
+                return matchesSearch &&
+                       matchesDepartment;
+
+            });
+
+
+        filteredEmployees.forEach(employee => {
+
+            const initials =
+                employee.name
+                .split(" ")
+                .map(word => word[0])
+                .join("")
+                .substring(0, 2)
+                .toUpperCase();
+
+
+            const statusClass =
+                employee.status === "Active"
+                ? "status-active"
+                : "status-inactive";
+
+
+            table.innerHTML += `
+
+                <tr>
+
+                    <td>
+
+                        <div class="employee-info">
+
+                            <div class="employee-avatar">
+                                ${initials}
+                            </div>
+
+                            <div>
+
+                                <div class="employee-name">
+                                    ${employee.name}
+                                </div>
+
+                                <div class="employee-email">
+                                    ${employee.email}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                    <td>
+                        ${employee.department}
+                    </td>
+
+
+                    <td>
+                        ${employee.position}
+                    </td>
+
+
+                    <td>
+                        ${employee.phone}
+                    </td>
+
+
+                    <td>
+
+                        <span class="status ${statusClass}">
+
+                            ${employee.status}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <button
+                            class="action-btn edit-btn"
+                            onclick="editEmployee(${employee.id})">
+
+                            <i class="bi bi-pencil-square"></i>
+
+                        </button>
+
+
+                        <button
+                            class="action-btn delete-btn"
+                            onclick="deleteEmployee(${employee.id})">
+
+                            <i class="bi bi-trash"></i>
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+
+        updateDashboard();
+
+    }
+
+
+    /*  DASHBOARD  */
+
+    function updateDashboard() {
+
+        document.getElementById("totalEmployees")
+            .innerText = employees.length;
+
+
+        document.getElementById("activeEmployees")
+            .innerText =
+            employees.filter(
+                employee => employee.status === "Active"
+            ).length;
+
+
+        document.getElementById("inactiveEmployees")
+            .innerText =
+            employees.filter(
+                employee => employee.status === "Inactive"
+            ).length;
+
+
+        const departments =
+            [...new Set(
+                employees.map(
+                    employee => employee.department
+                )
+            )];
+
+
+        document.getElementById("totalDepartments")
+            .innerText = departments.length;
+
+
+        displayDepartmentStats();
+
+    }
+
+
+    /*  DEPARTMENT STATS  */
+
+    function displayDepartmentStats() {
+
+        const container =
+            document.getElementById("departmentStats");
+
+        container.innerHTML = "";
+
+
+        const departments = [
+            "IT",
+            "HR",
+            "Finance",
+            "Marketing",
+            "Sales"
+        ];
+
+
+        departments.forEach(department => {
+
+            const count =
+                employees.filter(
+                    employee =>
+                    employee.department === department
+                ).length;
+
+
+            const percentage =
+                employees.length > 0
+                ? (count / employees.length) * 100
+                : 0;
+
+
+            container.innerHTML += `
+
+                <div class="department-item">
+
+                    <div style="width:100%">
+
+                        <div class="d-flex justify-content-between">
+
+                            <span>
+                                ${department}
+                            </span>
+
+                            <strong>
+                                ${count}
+                            </strong>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                style="width:${percentage}%">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+
+    /*  ADD EMPLOYEE  */
+
+    function openAddModal() {
+
+        document.getElementById("modalTitle")
+            .innerText = "Add Employee";
+
+        document.getElementById("employeeForm")
+            .reset();
+
+        document.getElementById("employeeId")
+            .value = "";
+
+    }
+
+
+    /*  EDIT EMPLOYEE  */
+
+    function editEmployee(id) {
+
+        const employee =
+            employees.find(
+                employee => employee.id === id
+            );
+
+
+        if (!employee) return;
+
+
+        document.getElementById("modalTitle")
+            .innerText = "Edit Employee";
+
+
+        document.getElementById("employeeId")
+            .value = employee.id;
+
+        document.getElementById("name")
+            .value = employee.name;
+
+        document.getElementById("email")
+            .value = employee.email;
+
+        document.getElementById("department")
+            .value = employee.department;
+
+        document.getElementById("position")
+            .value = employee.position;
+
+        document.getElementById("phone")
+            .value = employee.phone;
+
+        document.getElementById("status")
+            .value = employee.status;
+
+
+        const modal =
+            new bootstrap.Modal(
+                document.getElementById("employeeModal")
+            );
+
+        modal.show();
+
+    }
+
+
+    /*  SAVE EMPLOYEE  */
+
+    document.getElementById("employeeForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            const id =
+                document.getElementById("employeeId").value;
+
+
+            const employeeData = {
+
+                id: id
+                    ? Number(id)
+                    : Date.now(),
+
+                name:
+                    document.getElementById("name").value,
+
+                email:
+                    document.getElementById("email").value,
+
+                department:
+                    document.getElementById("department").value,
+
+                position:
+                    document.getElementById("position").value,
+
+                phone:
+                    document.getElementById("phone").value,
+
+                status:
+                    document.getElementById("status").value
+
+            };
+
+
+            if (id) {
+
+                employees =
+                    employees.map(employee =>
+                        employee.id === Number(id)
+                        ? employeeData
+                        : employee
+                    );
+
+            } else {
+
+                employees.push(employeeData);
+
+            }
+
+
+            saveData();
+
+            displayEmployees();
+
+
+            const modal =
+                bootstrap.Modal.getInstance(
+                    document.getElementById("employeeModal")
+                );
+
+            modal.hide();
+
+
+            this.reset();
+
+        });
+
+
+    /*  DELETE EMPLOYEE  */
+
+    function deleteEmployee(id) {
+
+        const employee =
+            employees.find(
+                employee => employee.id === id
+            );
+
+
+        if (
+            confirm(
+                `Are you sure you want to delete ${employee.name}?`
+            )
+        ) {
+
+            employees =
+                employees.filter(
+                    employee => employee.id !== id
+                );
+
+
+            saveData();
+
+            displayEmployees();
+
+        }
+
+    }
+
+
+    /*  MOBILE SIDEBAR  */
+
+    function toggleSidebar() {
+
+        document
+            .getElementById("sidebar")
+            .classList
+            .toggle("show");
+
+    }
+
+
+    /*  INITIAL LOAD  */
+
+    displayEmployees();
+
+</script>
+
+</body>
+</html>

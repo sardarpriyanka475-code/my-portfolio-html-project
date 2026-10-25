@@ -1,0 +1,15 @@
+
+.head{
+  color: blue;
+  text-align:center;
+  font-family: fantasy;
+  background-colour:bisque;
+
+}
+.app{
+  border: 1px solid pink;
+  border-radius:12px;
+  padding:12px;
+  margin:12px;
+  background-color:aliceblue;
+}

@@ -1,0 +1,829 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NovaWatch | Smart Living</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #080b09;
+  --card: #121813;
+  --lime: #c7ff4f;
+  --text: #f5f7f2;
+  --muted: #a1ada3;
+  --border: #29342c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }
+
+.container {
+  width: min(1150px, 90%);
+  margin: auto;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #080b09ed;
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--border);
+}
+
+nav {
+  min-height: 76px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.logo span { color: var(--lime); }
+
+.nav-links {
+  display: flex;
+  gap: 27px;
+}
+
+.nav-links a {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.nav-links a:hover { color: var(--lime); }
+
+.btn {
+  display: inline-block;
+  padding: 13px 22px;
+  border-radius: 30px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  transition: .25s;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--lime);
+  color: #11170c;
+}
+
+.btn-primary:hover {
+  background: white;
+  transform: translateY(-3px);
+}
+
+.btn-outline {
+  border-color: var(--border);
+  color: white;
+}
+
+.btn-outline:hover { border-color: var(--lime); }
+
+.hero {
+  min-height: 660px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 50px;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.eyebrow {
+  color: var(--lime);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(45px, 6vw, 78px);
+  letter-spacing: -4px;
+  line-height: 1.05;
+  margin: 25px 0;
+}
+
+h1 span, h2 span { color: var(--lime); }
+
+.hero p {
+  max-width: 510px;
+  color: var(--muted);
+  margin-bottom: 30px;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero-note {
+  margin-top: 35px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.watch-area {
+  min-height: 450px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  background: radial-gradient(circle, #293b1c 0%, #111811 42%, transparent 72%);
+}
+
+.watch {
+  width: 210px;
+  height: 310px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 25px 35px #000);
+}
+
+.strap {
+  position: absolute;
+  width: 110px;
+  height: 145px;
+  background: linear-gradient(90deg, #303a31, #111612, #303a31);
+  border: 1px solid #536050;
+  border-radius: 25px;
+}
+
+.strap.top { top: 0; }
+.strap.bottom { bottom: 0; }
+
+.watch-face {
+  width: 195px;
+  height: 220px;
+  z-index: 2;
+  border: 7px solid #596459;
+  border-radius: 43px;
+  background: radial-gradient(circle at top, #283b23, #070b08 70%);
+  box-shadow: inset 0 0 0 2px #080b09;
+  padding: 17px 12px;
+  text-align: center;
+}
+
+.watch-label {
+  font-size: 10px;
+  color: var(--lime);
+  letter-spacing: 2px;
+}
+
+.watch-time {
+  font-size: 47px;
+  font-weight: 700;
+  margin: 12px 0 2px;
+  letter-spacing: -3px;
+}
+
+.watch-date {
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.activity {
+  width: 65px;
+  height: 65px;
+  border: 5px solid var(--lime);
+  border-left-color: #46523c;
+  border-radius: 50%;
+  margin: 13px auto 0;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+}
+
+.float-card {
+  position: absolute;
+  background: #151c16eF;
+  border: 1px solid #394538;
+  border-radius: 16px;
+  padding: 15px 18px;
+  box-shadow: 0 15px 35px #0005;
+}
+
+.float-card small {
+  display: block;
+  color: var(--muted);
+}
+
+.float-card strong { font-size: 20px; }
+.float-card span { color: var(--lime); }
+
+.card-one { top: 65px; right: 0; }
+.card-two { bottom: 55px; left: 0; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-7deg); }
+  50% { transform: translateY(-13px) rotate(-4deg); }
+}
+
+section.content-section { padding: 90px 0; }
+
+.section-heading {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 45px;
+}
+
+h2 {
+  font-size: clamp(32px, 4vw, 48px);
+  letter-spacing: -2px;
+  line-height: 1.15;
+  margin: 15px 0;
+}
+
+.section-heading p { color: var(--muted); }
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.feature {
+  background: linear-gradient(145deg, #151c16, #0c100d);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 28px;
+  transition: .25s;
+}
+
+.feature:hover {
+  transform: translateY(-6px);
+  border-color: var(--lime);
+}
+
+.feature-icon {
+  font-size: 30px;
+  margin-bottom: 25px;
+}
+
+.feature h3 {
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.feature p { color: var(--muted); font-size: 14px; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 40px;
+}
+
+.stat {
+  text-align: center;
+  padding: 25px 10px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--card);
+}
+
+.stat strong {
+  display: block;
+  color: var(--lime);
+  font-size: 30px;
+}
+
+.stat span { font-size: 12px; color: var(--muted); }
+
+.product-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.product-art {
+  min-height: 400px;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background: radial-gradient(circle, #2b4221, #111711 60%);
+  display: grid;
+  place-items: center;
+}
+
+.dial {
+  width: 230px;
+  height: 230px;
+  border: 2px solid #77964e;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle, #24351d, #080c08);
+  box-shadow: 0 0 60px #c7ff4f17;
+}
+
+.dial strong { font-size: 52px; letter-spacing: -3px; }
+.dial small { display: block; text-align: center; color: var(--lime); }
+
+.product-copy p { color: var(--muted); margin: 20px 0; }
+
+.check-list {
+  list-style: none;
+  display: grid;
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.check-list li::before {
+  content: "✓";
+  color: var(--lime);
+  margin-right: 12px;
+  font-weight: bold;
+}
+
+.pricing {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.price-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 23px;
+  padding: 30px;
+}
+
+.price-card.popular { border-color: var(--lime); }
+
+.price-card h3 { font-size: 23px; }
+
+.price-card p {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 12px 0;
+}
+
+.price {
+  font-size: 38px;
+  font-weight: 800;
+  margin: 20px 0;
+}
+
+.price-card ul {
+  list-style: none;
+  margin: 20px 0 28px;
+  font-size: 14px;
+}
+
+.price-card li { margin: 12px 0; }
+.price-card li::before { content: "✓"; color: var(--lime); margin-right: 10px; }
+.price-card .btn { width: 100%; text-align: center; }
+
+.faq {
+  max-width: 750px;
+  margin: auto;
+}
+
+details {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+}
+
+summary { cursor: pointer; font-weight: 700; }
+details p { color: var(--muted); padding-top: 15px; }
+
+.cta {
+  padding: 55px 35px;
+  border-radius: 28px;
+  border: 1px solid #566b3c;
+  background: radial-gradient(circle at 85% 20%, #354c22, #101610 60%);
+  text-align: center;
+  margin-bottom: 85px;
+}
+
+.cta p { color: var(--muted); margin: 15px 0 25px; }
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 30px 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 22px;
+  border-radius: 30px;
+  background: var(--lime);
+  color: #11170c;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+  z-index: 20;
+  width: max-content;
+  max-width: 90%;
+}
+
+.toast.show { opacity: 1; }
+
+@media (max-width: 850px) {
+  .hero, .product-section { grid-template-columns: 1fr; }
+  .hero { text-align: center; }
+  .hero p { margin-left: auto; margin-right: auto; }
+  .hero-buttons { justify-content: center; }
+  .features { grid-template-columns: repeat(2, 1fr); }
+  .pricing { grid-template-columns: 1fr; }
+  .product-art { order: 2; }
+  .product-copy { order: 1; }
+  .nav-links { gap: 12px; }
+}
+
+@media (max-width: 600px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 5%;
+    right: 5%;
+    padding: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    flex-direction: column;
+  }
+
+  .nav-links.open { display: flex; }
+  nav .btn { display: none; }
+
+  .menu {
+    display: block;
+    background: transparent;
+    color: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 20px;
+  }
+
+  .hero { padding-top: 45px; }
+  .watch-area { min-height: 390px; }
+  .watch { transform: scale(.88); }
+  .card-one { right: -5px; top: 30px; }
+  .card-two { left: -5px; bottom: 25px; }
+  .features { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .product-art { min-height: 330px; }
+  .cta { padding: 35px 20px; }
+}
+
+.menu { display: none; }
+@media (max-width: 600px) { .menu { display: block; } }
+</style>
+</head>
+
+<body>
+<header>
+  <nav class="container">
+    <a href="#home" class="logo">NOVA<span>WATCH</span></a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#features">Features</a>
+      <a href="#product">Experience</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </div>
+
+    <a href="#pricing" class="btn btn-primary">Explore Watches ↗</a>
+    <button class="menu" id="menuBtn" aria-label="Toggle navigation">☰</button>
+  </nav>
+</header>
+
+<main>
+<section class="container hero" id="home">
+  <div>
+    <div class="eyebrow">YOUR DAY. YOUR PACE.</div>
+    <h1>Make every<br>second <span>count.</span></h1>
+    <p>
+      Meet NovaWatch — your everyday companion for movement,
+      wellness and staying connected. Smart technology with
+      a design that fits your life.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#pricing" class="btn btn-primary">Explore Collection ↗</a>
+      <a href="#features" class="btn btn-outline">Discover Features</a>
+    </div>
+
+    <div class="hero-note">✦ Designed for everyday life · Made to move with you</div>
+  </div>
+
+  <div class="watch-area">
+    <div class="watch">
+      <div class="strap top"></div>
+      <div class="strap bottom"></div>
+      <div class="watch-face">
+        <div class="watch-label">NOVA ACTIVE</div>
+        <div class="watch-time" id="watchTime">09:41</div>
+        <div class="watch-date" id="watchDate">YOUR DAILY DASHBOARD</div>
+        <div class="activity">82%<br>MOVE</div>
+      </div>
+    </div>
+
+    <div class="float-card card-one">
+      <small>HEART RATE</small>
+      <strong>72 <span>BPM</span></strong>
+    </div>
+
+    <div class="float-card card-two">
+      <small>DAILY ACTIVITY</small>
+      <strong>8,240 <span>steps</span></strong>
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">SMARTER EVERY DAY</div>
+      <h2>Your life, <span>in sync.</span></h2>
+      <p>Useful insights and thoughtful features, all in one stylish wearable concept.</p>
+    </div>
+
+    <div class="features" id="features">
+      <article class="feature">
+        <div class="feature-icon">♡</div>
+        <h3>Wellness Insights</h3>
+        <p>Keep track of everyday wellness trends and build healthier habits.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-icon">↗</div>
+        <h3>Activity Tracking</h3>
+        <p>Monitor daily movement, set goals and celebrate your progress.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-icon">☾</div>
+        <h3>Sleep Routine</h3>
+        <p>Review sleep patterns and work towards a more consistent routine.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-icon">⌁</div>
+        <h3>Stay Connected</h3>
+        <p>Keep important notifications close without checking your phone constantly.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-icon">◈</div>
+        <h3>Modern Design</h3>
+        <p>A clean, versatile look designed to complement your everyday style.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>Simple Experience</h3>
+        <p>Clear information and straightforward controls keep things easy to use.</p>
+      </article>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><strong>7 Days*</strong><span>Battery-life concept</span></div>
+      <div class="stat"><strong>24/7</strong><span>Everyday insights</span></div>
+      <div class="stat"><strong>5 ATM*</strong><span>Water-resistance concept</span></div>
+      <div class="stat"><strong>1 Tap</strong><span>Simple controls</span></div>
+    </div>
+    <p style="font-size:11px;margin-top:10px;color:var(--muted)">*Illustrative specifications only. Confirm real product specifications before publishing.</p>
+  </div>
+</section>
+
+<section class="content-section" id="product">
+  <div class="container product-section">
+    <div class="product-art">
+      <div class="dial">
+        <div>
+          <strong id="dialTime">09:41</strong>
+          <small>YOUR TIME. YOUR PACE.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-copy">
+      <div class="eyebrow">MADE FOR YOUR ROUTINE</div>
+      <h2>Less distraction.<br><span>More intention.</span></h2>
+      <p>
+        Keep your goals and everyday information within reach.
+        NovaWatch brings a simple, modern smartwatch experience
+        to your daily routine.
+      </p>
+
+      <ul class="check-list">
+        <li>Clean, glanceable dashboard</li>
+        <li>Comfort-focused design concept</li>
+        <li>Personal activity goals</li>
+        <li>Versatile style for every occasion</li>
+      </ul>
+
+      <a href="#pricing" class="btn btn-primary">Find Your Watch ↗</a>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" id="pricing">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">CHOOSE YOUR STYLE</div>
+      <h2>Find your <span>NovaWatch.</span></h2>
+      <p>Sample pricing for this website design. Update the prices and product details before launch.</p>
+    </div>
+
+    <div class="pricing">
+      <article class="price-card">
+        <h3>Nova Lite</h3>
+        <p>Everyday essentials.</p>
+        <div class="price">₹2,999</div>
+        <ul>
+          <li>Daily activity overview</li>
+          <li>Notification concept</li>
+          <li>Comfort-fit strap</li>
+          <li>Custom watch face concept</li>
+        </ul>
+        <button class="btn btn-outline buyBtn" data-plan="Nova Lite">Choose Nova Lite</button>
+      </article>
+
+      <article class="price-card popular">
+        <h3>Nova Active ✦</h3>
+        <p>For a more active routine.</p>
+        <div class="price">₹4,999</div>
+        <ul>
+          <li>Everything in Nova Lite</li>
+          <li>Activity insights concept</li>
+          <li>Sleep routine insights</li>
+          <li>Premium strap concept</li>
+        </ul>
+        <button class="btn btn-primary buyBtn" data-plan="Nova Active">Choose Nova Active</button>
+      </article>
+
+      <article class="price-card">
+        <h3>Nova Pro</h3>
+        <p>A premium concept.</p>
+        <div class="price">₹6,999</div>
+        <ul>
+          <li>Everything in Nova Active</li>
+          <li>Advanced dashboard concept</li>
+          <li>Extra personalisation</li>
+          <li>Gift packaging concept</li>
+        </ul>
+        <button class="btn btn-outline buyBtn" data-plan="Nova Pro">Choose Nova Pro</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" id="faq">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">GOOD TO KNOW</div>
+      <h2>Frequently asked <span>questions.</span></h2>
+    </div>
+
+    <div class="faq">
+      <details>
+        <summary>Is NovaWatch a real product?</summary>
+        <p>This is a smartwatch landing-page concept. Replace sample product details with verified information before commercial use.</p>
+      </details>
+
+      <details>
+        <summary>Can I purchase a watch here?</summary>
+        <p>The buttons demonstrate the interface only. Connect a real payment gateway or checkout page to accept orders.</p>
+      </details>
+
+      <details>
+        <summary>Does it work with Android and iPhone?</summary>
+        <p>Actual compatibility depends on the final device. Add confirmed device and operating-system requirements here.</p>
+      </details>
+
+      <details>
+        <summary>How long does the battery last?</summary>
+        <p>The battery figure shown is illustrative. Use tested specifications for a real product.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="cta">
+    <div class="eyebrow">YOUR NEXT CHAPTER</div>
+    <h2>A little smarter.<br><span>A lot more you.</span></h2>
+    <p>Keep your goals close and make room for what matters.</p>
+    <a href="#pricing" class="btn btn-primary">Explore the Collection ↗</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <a href="#home" class="logo">NOVA<span>WATCH</span></a>
+   
+    <a href="#home">Back to top ↑</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", function () {
+  navLinks.classList.toggle("open");
+  menuBtn.textContent = navLinks.classList.contains("open") ? "×" : "☰";
+});
+
+navLinks.querySelectorAll("a").forEach(function (link) {
+  link.addEventListener("click", function () {
+    navLinks.classList.remove("open");
+    menuBtn.textContent = "☰";
+  });
+});
+
+// Display the current time on the watch illustrations.
+function updateWatchTime() {
+  const now = new Date();
+  const time = now.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  });
+
+  document.getElementById("watchTime").textContent = time;
+  document.getElementById("dialTime").textContent = time;
+
+  document.getElementById("watchDate").textContent =
+    now.toLocaleDateString([], {
+      weekday: "short",
+      month: "short",
+      day: "numeric"
+    }).toUpperCase();
+}
+
+updateWatchTime();
+setInterval(updateWatchTime, 1000);
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Demo purchase interaction.
+const toast = document.getElementById("toast");
+let toastTimer;
+
+document.querySelectorAll(".buyBtn").forEach(function (button) {
+  button.addEventListener("click", function () {
+    toast.textContent = button.dataset.plan +
+      " selected! Connect a checkout system to accept orders.";
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toast.classList.remove("show");
+    }, 3000);
+  });
+});
+</script>
+</body>
+</html>

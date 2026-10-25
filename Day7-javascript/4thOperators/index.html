@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //opertors - Action on Data
+
+        //1.  Arthmetic Operatos - + , - , / , *, %(Remainder)
+
+        let x = 10
+        let y = 5
+
+        document.write(x+y + "<br>")  //15
+        document.write(x-y + "<br>")  //5
+        document.write(x/y + "<br>") // 2
+        document.write(x*y + "<br>") //50
+        document.write(x%y + "<br>")  //0
+
+        // % Remainder - 
+
+        document.write(13 % 2)   // 1
+
+        document.write(12 % 5)   // 2
+
+        //Left < % Right = Left No
+
+        document.write(2 % 9)  // 2
+
+        document.write(1 % 6)  // 1
+
+
+        //2. Assignment - =
+
+        let score = 5
+       
+        // score = score + 3 
+        score += 3
+
+
+        document.write(score)   // 
+
+
+        //3. Comparsion Operator  - Boolean Data type
+
+        let a = 10
+        let b = 8
+
+        document.write(a > b) //true
+        document.write(a < b) //false
+
+        let xyz = 15
+        let pqr = 15
+
+        document.write(xyz >= pqr)  //true
+  
+        document.write(xyz <= pqr)  //true
+
+        let height1 = 100
+        let height2  = "100"
+
+        // == : It Will Only Checks The VALUE
+
+        document.write(height1 == height2)  // true
+
+        // === : It will checks Both Value and DATA TYPE
+        document.write(height1 === height2)  //false
+
+
+
+        //Logical Operators- AND , OR , !
+
+         //AND - && - Both Condition True Then Only OUTPUT is TRUE
+
+        let isMember = false
+
+        let TotalBill = 1000
+
+        document.write("Result of And " ,  isMember  && TotalBill >= 800)
+
+
+        //OR - Atleast 1 condition is True output is True
+
+         document.write("Result of OR " , isMember  || TotalBill >= 800)
+
+        // ! - Flip /Opp value
+
+        let NetflixSubb = false
+
+        document.write(!NetflixSubb)
+
+        let isFollow = false
+
+        document.write(!isFollow)
+
+
+
+
+
+    </script>
+</body>
+</html>

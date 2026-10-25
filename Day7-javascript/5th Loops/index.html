@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //RULES: condition is true loop starts condition flase loop stops
+    //1. for(start point; ending/condition; ++ or -- (operation))
+    for(let i = 1; i<= 10; i++)
+    {
+        document.write("The value of i is:" + i + "<br>");
+
+    }
+    //print number 10 to 1 - console
+    for (let j =10; j>=10; j--)
+{
+
+    document.write("The value of j is:" + j + "<br>");
+}    
+//RULE: Condition is true loop starts condition flase loop stops
+//2. while(condition){task} Loop
+let count = 1
+while(count<=5){
+    document.write("Login Attemp:", count + "<br>");
+    count++
+}
+// 3. do while loop - It will execute - run the code atleat one time
+let number = 7
+do{
+    document.write("Good Evening" + "<br>");
+} while(number<5)
+
+// Array - use for loop for accessing data of array
+const fruits = ["Apple", "Mango", "Orange"]
+// lat index = lenght -1
+for (let k=0; k <= fruits.length - 1; k++){
+    document.write(fruits[k] + "<br>");
+
+}
+</script>
+</body>
+</html>

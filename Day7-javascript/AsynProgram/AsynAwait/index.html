@@ -1,0 +1,104 @@
+/*
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    async function getMovie(movieName){
+
+               let url = `http://www.omdbapi.com/?t=${movieName}&apikey=a6606658`
+
+               try{
+
+                //Getting Data From API
+
+                let response =   await    fetch(url)
+
+                let data    =     await   response.json()
+
+                console.log(data)
+
+               }catch(error){
+                 console.log("Erroe Fetching Data", error)
+               }
+
+        }
+           getMovie("Interstellar")
+
+        function extraTask(){
+            console.log("Hello everyone")
+        }
+        extraTask()
+    </script>
+</body>
+</html>
+*/
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Movie Information</title>
+</head>
+
+<body>
+
+    <h1>Movie Information</h1>
+
+    <div id="movie">
+        Loading movie information...
+    </div>
+
+    <script>
+
+        async function getMovie(movieName) {
+
+            let url =
+                `https://www.omdbapi.com/?t=${movieName}&apikey=a6606658`;
+
+            try {
+
+                // Getting data from API
+                let response = await fetch(url);
+
+                // Convert response into JSON
+                let data = await response.json();
+
+                // Display data on webpage using DOM
+                document.getElementById("movie").innerHTML =
+                    "<h2>" + data.Title + "</h2>" +
+                    "<p><b>Year:</b> " + data.Year + "</p>" +
+                    "<p><b>Genre:</b> " + data.Genre + "</p>" +
+                    "<p><b>Director:</b> " + data.Director + "</p>" +
+                    "<p><b>Actors:</b> " + data.Actors + "</p>" +
+                    "<p><b>IMDB Rating:</b> " + data.imdbRating + "</p>";
+
+            }
+            catch (error) {
+
+                document.getElementById("movie").innerHTML =
+                    "<p>Error fetching movie data.</p>";
+
+                console.log(error);
+            }
+        }
+
+        // Call the function
+        getMovie("Interstellar");
+
+    </script>
+
+</body>
+
+</html>
